@@ -28,7 +28,7 @@
     <Compile Include="DTProduct.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="setup.py">
+    <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
