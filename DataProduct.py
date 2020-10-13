@@ -1,11 +1,12 @@
-from dbconection import getConnection
+import dbconection
 import pypyodbc
-from DTProduct import DTProduct
+import DTProduct
+
 def getProducts():   
    try:
         # Get the sql connection
      queryproduct='Select * from Producto'
-     connection = getConnection()
+     connection = dbconection.getConnection()
      cursor = connection.cursor()
 
         # Execute the sql query
@@ -14,7 +15,7 @@ def getProducts():
      for p in cursorp:
             id=int(p[0])
             image=str(p[1])
-            perobjet=DTProduct(id,image)
+            perobjet=DTProduct.DTProduct(id,image)
             listproduct.append(perobjet)
      return listproduct
      
@@ -31,7 +32,7 @@ def getProduct(id):
     return dprodut
 def insertProduct(product):
   try:
-           connection = getConnection()
+           connection = dbconection.getConnection()
            query = "insert into Producto values (?)" 
            cursor = connection.cursor()
 
@@ -50,7 +51,7 @@ def insertProduct(product):
            connection.close()
 def updateProduct(product):
   try:
-           connection = getConnection()
+           connection = dbconection.getConnection()
            query = "Update Producto Set ImgProducto=? where IdProducto=?" 
            cursor = connection.cursor()
 
@@ -69,7 +70,7 @@ def updateProduct(product):
            connection.close() 
 def deleteProduct(product):
   try:
-           connection = getConnection()
+           connection = dbconection.getConnection()
            query = "delete from Producto where IdProducto=?" 
            cursor = connection.cursor()
 
