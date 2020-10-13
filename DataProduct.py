@@ -1,10 +1,11 @@
-import dbconection as con
+from dbconection import getConnection
+import pypyodbc
 from DTProduct import DTProduct
 def getProducts():   
    try:
         # Get the sql connection
      queryproduct='Select * from Producto'
-     connection = con.getConnection()
+     connection = getConnection()
      cursor = connection.cursor()
 
         # Execute the sql query
@@ -30,7 +31,7 @@ def getProduct(id):
     return dprodut
 def insertProduct(product):
   try:
-           connection = con.getConnection()
+           connection = getConnection()
            query = "insert into Producto values (?)" 
            cursor = connection.cursor()
 
@@ -49,7 +50,7 @@ def insertProduct(product):
            connection.close()
 def updateProduct(product):
   try:
-           connection = con.getConnection()
+           connection = getConnection()
            query = "Update Producto Set ImgProducto=? where IdProducto=?" 
            cursor = connection.cursor()
 
@@ -68,7 +69,7 @@ def updateProduct(product):
            connection.close() 
 def deleteProduct(product):
   try:
-           connection = con.getConnection()
+           connection = getConnection()
            query = "delete from Producto where IdProducto=?" 
            cursor = connection.cursor()
 
@@ -85,21 +86,18 @@ def deleteProduct(product):
   finally:
            # Close the connection
            connection.close() 
-""" 
+
 list=getProducts()
- for x in list: 
- print("------------")
- print(x.id)
- print("------------")
- print(x.image)
- rint("------------")
- print("------------")
- print("------------")
- print("------------")
- obj=getProduct(5)
- rint(obj.id)
-  rint(obj.image)
-"""
+for x in list: 
+  print("------------")
+  print(x.id)
+  print("------------")
+  print(x.image)
+  print("------------")
+  print("------------")
+  print("------------")
+
+
 """
 prouct=DTProduct(17,"gds.jpg")
  mensaje=insertProduct(prouct)
