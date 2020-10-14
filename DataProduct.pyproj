@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>612c31a0-8e19-455d-93b6-feb246b87902</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DataProduct.py</StartupFile>
+    <StartupFile>DataProduct\DataProduct.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,13 +22,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DataProduct.py" />
-    <Compile Include="dbconection.py">
+    <Compile Include="conection\__init__.py" />
+    <Compile Include="DataProduct\DataProduct.py" />
+    <Compile Include="conection\dbconection.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DTProduct.py">
+    <Compile Include="DataProduct\__init__.py" />
+    <Compile Include="entity\DTProduct.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="entity\__init__.py" />
+    <Compile Include="setup.py" />
     <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +47,14 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="conection\" />
+    <Folder Include="entity\" />
+    <Folder Include="DataProduct\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

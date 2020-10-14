@@ -1,12 +1,11 @@
-import dbconection
-import pypyodbc
-import DTProduct
+from conection.dbconection import getConnection
+from entity.DTProduct import DTProduct
 
 def getProducts():   
    try:
         # Get the sql connection
      queryproduct='Select * from Producto'
-     connection = dbconection.getConnection()
+     connection = getConnection()
      cursor = connection.cursor()
 
         # Execute the sql query
@@ -15,7 +14,7 @@ def getProducts():
      for p in cursorp:
             id=int(p[0])
             image=str(p[1])
-            perobjet=DTProduct.DTProduct(id,image)
+            perobjet=DTProduct(id,image)
             listproduct.append(perobjet)
      return listproduct
      
@@ -23,16 +22,29 @@ def getProducts():
     print("Error listing products: ", e) 
    finally:
     connection.close()        
-def getProduct(id): 
-    listp=getProducts()
-    dprodut=0
-    for p in listp:
-     if(id==p.id):
-      dprodut=p;
-    return dprodut
+def getProduct(idprod):   
+   try:
+        # Get the sql connection
+     queryproduct='Select * from Producto where IdProducto=?'
+     connection = getConnection()
+     cursor = connection.cursor()
+
+        # Execute the sql query
+     cursorp =cursor.execute(queryproduct,[idprod])
+     result=cursor.fetchall();
+     row=result[0]
+     id=int(row[0])
+     image=str(row[1])
+     perobjet=DTProduct(id,image)
+     return perobjet
+     
+   except Exception as e:
+    print("Error searching products: ", e) 
+   finally:
+    connection.close() 
 def insertProduct(product):
   try:
-           connection = dbconection.getConnection()
+           connection = getConnection()
            query = "insert into Producto values (?)" 
            cursor = connection.cursor()
 
@@ -51,7 +63,7 @@ def insertProduct(product):
            connection.close()
 def updateProduct(product):
   try:
-           connection = dbconection.getConnection()
+           connection = getConnection()
            query = "Update Producto Set ImgProducto=? where IdProducto=?" 
            cursor = connection.cursor()
 
@@ -95,11 +107,17 @@ for x in list:
   print("------------")
   print(x.image)
   print("------------")
-  print("------------")
-  print("------------")
 
-
-"""
+obj=getProduct(10)
+print(obj.id)
+print(obj.image)
+""" 
+def getProduct(id): 
+    dprodut=DTProduct(0,"")
+    for p in getProducts():
+     if(id==p.id):
+      dprodut=p;
+    return dprodut
 prouct=DTProduct(17,"gds.jpg")
  mensaje=insertProduct(prouct)
  mensaje=updateProduct(prouct)
